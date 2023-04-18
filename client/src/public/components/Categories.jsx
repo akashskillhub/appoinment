@@ -37,10 +37,9 @@ const Categories = () => {
 
     const cardSquare = <>
         {
-            squareCard.map(item => <div class="card mt-5">
+            squareCard.map(item => <div class="card mt-5 shadow">
                 <div class="card-body">
                     <div className={`bg-light roundicon ${item.icon}`}></div>
-                    <img src="" alt="" />
                     <p className='fs-4 fw-bold text-secondary'>{item.title}</p>
                     <p>{item.desc}</p>
                     <Link className='nav-link' to={item.to}>Find Here <i class="bi bi-arrow-right-short text-primary"></i>
