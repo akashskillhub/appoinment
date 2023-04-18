@@ -1,0 +1,11 @@
+.hero {
+    height: calc(91vh);
+}
+
+.hero img {
+    max-height: 91vh;
+}
+
+.logo {
+    max-width: 150px;
+}
