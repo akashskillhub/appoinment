@@ -31,6 +31,12 @@ const Login = () => {
                         </div>
                         <br />
                         <button type="button" class="btn btn-primary w-100">Sign In</button>
+                        <p className='text-center my-2'>
+                            New to SKILLHUB?
+                            <strong>
+                                <Link className='nav-link d-inline' to="register">Register Here</Link>
+                            </strong>
+                        </p>
                         <p className='text-center my-3'>OR</p>
                         <button type="button" class="btn btn-outline-primary w-100 btn-lg">Continue With Google</button>
                     </div>

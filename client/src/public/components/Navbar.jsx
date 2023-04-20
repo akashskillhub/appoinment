@@ -45,7 +45,7 @@ const Navbar = () => {
                             <li><a class="dropdown-item" href="#">Logout</a></li>
                         </ul>
                     </div>
-                    <button type="button" class="ms-3 btn btn-primary">Make Appointment</button>
+                    <Link to="/appointment" class="ms-3 btn btn-primary">Make Appointment</Link>
                 </div>
             </div>
         </div>
