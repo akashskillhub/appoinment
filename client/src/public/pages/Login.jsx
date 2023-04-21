@@ -1,9 +1,23 @@
+import { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
+import { loginUser } from '../../redux/public/publicActions'
 
 const Login = () => {
+    const { loading, error, info } = useSelector(state => state.public)
+    const dispatch = useDispatch()
+    const [userData, setUserData] = useState({
+        email: "john@gmail.com",
+        password: "123"
+    })
+    const handleLogin = () => dispatch(loginUser(userData))
+    if (loading) return <div class="spinner-border text-primary"></div>
     return <div className='container'>
         <div className="row">
             <div className="col-sm-5 offset-sm-3">
+                {
+                    error && <div class="alert alert-danger">{error}</div>
+                }
                 <img src="" alt="" />
                 <div className="card">
                     <div className="card-body">
@@ -30,11 +44,11 @@ const Login = () => {
 
                         </div>
                         <br />
-                        <button type="button" class="btn btn-primary w-100">Sign In</button>
+                        <button onClick={handleLogin} type="button" class="btn btn-primary w-100">Sign In</button>
                         <p className='text-center my-2'>
                             New to SKILLHUB?
                             <strong>
-                                <Link className='nav-link d-inline' to="register">Register Here</Link>
+                                <Link className='nav-link d-inline' to="/register">Register Here</Link>
                             </strong>
                         </p>
                         <p className='text-center my-3'>OR</p>
