@@ -15,6 +15,10 @@ const appointment = mongoose.Schema({
         ref: "doctor",
         required: true
     },
+    comment: {
+        type: String,
+        required: true
+    },
     status: {
         type: String,
         enum: ["pending", "confirm", "reject", "complete"],

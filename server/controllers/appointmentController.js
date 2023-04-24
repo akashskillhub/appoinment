@@ -1,6 +1,7 @@
 const asyncHandler = require("express-async-handler")
 const Appointmnet = require("../models/Appointmnet")
 exports.bookAppointment = asyncHandler(async (req, res) => {
+    // console.log(req.body)
     const result = await Appointmnet.create({
         ...req.body,
         bookingDate: new Date(`${req.body.date} ${req.body.time}`)

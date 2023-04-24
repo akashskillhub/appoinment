@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit"
-import { loginUser, registerUser } from "./publicActions"
+import { bookAppoinment, getDoctorsAction, loginUser, registerUser } from "./publicActions"
 const publicSlice = createSlice({
     name: "public",
     initialState: {
@@ -36,6 +36,30 @@ const publicSlice = createSlice({
                 state.info = payload
             })
             .addCase(loginUser.rejected, (state, { payload }) => {
+                state.loading = false
+                state.error = payload
+            })
+
+            .addCase(getDoctorsAction.pending, (state, { payload }) => {
+                state.loading = true
+            })
+            .addCase(getDoctorsAction.fulfilled, (state, { payload }) => {
+                state.loading = false
+                state.doctors = payload
+            })
+            .addCase(getDoctorsAction.rejected, (state, { payload }) => {
+                state.loading = false
+                state.error = payload
+            })
+
+            .addCase(bookAppoinment.pending, (state, { payload }) => {
+                state.loading = true
+            })
+            .addCase(bookAppoinment.fulfilled, (state, { payload }) => {
+                state.loading = false
+                state.book = true
+            })
+            .addCase(bookAppoinment.rejected, (state, { payload }) => {
                 state.loading = false
                 state.error = payload
             })

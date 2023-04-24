@@ -1,6 +1,6 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { loginUser } from '../../redux/public/publicActions'
 
 const Login = () => {
@@ -11,6 +11,13 @@ const Login = () => {
         password: "123"
     })
     const handleLogin = () => dispatch(loginUser(userData))
+    const navigate = useNavigate()
+    useEffect(() => {
+        if (info) {
+            navigate("/appointment")
+        }
+    }, [info])
+
     if (loading) return <div class="spinner-border text-primary"></div>
     return <div className='container'>
         <div className="row">

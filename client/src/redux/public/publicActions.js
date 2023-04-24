@@ -19,3 +19,21 @@ export const loginUser = createAsyncThunk("public/login", async (userData, { rej
     }
 
 })
+export const getDoctorsAction = createAsyncThunk("public/doctors", async (userData, { rejectWithValue, getState }) => {
+    try {
+        const { data } = await api.get("/employee/doctors")
+        return data.result
+    } catch (error) {
+        return rejectWithValue(error.response.data.message || error.message)
+    }
+
+})
+export const bookAppoinment = createAsyncThunk("public/book", async (bookingData, { rejectWithValue, getState }) => {
+    try {
+        const { data } = await api.post("/appointment/book", bookingData)
+        return data.result
+    } catch (error) {
+        return rejectWithValue(error.response.data.message || error.message)
+    }
+
+})

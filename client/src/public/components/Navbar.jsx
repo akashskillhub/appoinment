@@ -1,7 +1,11 @@
 import React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
+import { logout } from '../../redux/public/publicSlice'
 
 const Navbar = () => {
+    const { info } = useSelector(state => state.public)
+    const dispatch = useDispatch()
     const navLinks = [
         { label: "home", icon: "house", to: "/" },
         { label: "doctors", icon: "heart-pulse", to: "/doctors" },
@@ -17,6 +21,38 @@ const Navbar = () => {
         <span className={` bi bi-${item.icon}`}></span> {item.label}
     </Link>)
 
+    const lgoinOnlyContent = <>
+        {info && <>
+            <div class="dropdown">
+                {
+                    info.avatar
+                        ? <img
+                            data-bs-toggle="dropdown"
+                            className='img-fluid rounded-circle'
+                            width={50}
+                            src={info.avatar} alt={info.name} />
+                        : <div
+                            data-bs-toggle="dropdown"
+                            className='bg-primary p-4 rounded-circle text-light d-flex justify-content-center align-items-center fs-3 fw-bold'
+                            style={{ height: 50, width: 50 }}>
+                            {info.name[0].toUpperCase()}
+                        </div>
+                }
+                {/* <span className='fw-bold'>{info.name}</span> */}
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#">Action</a></li>
+                    <li><a class="dropdown-item" href="#">Another action</a></li>
+                    <li>
+                        <button
+                            class="dropdown-item" onClick={e => dispatch(logout())}>
+                            Logout
+                        </button>
+                    </li>
+                </ul>
+            </div>
+
+        </>}
+    </>
 
 
 
@@ -33,18 +69,7 @@ const Navbar = () => {
                     {linkList}
                 </div>
                 <div className='ms-auto d-flex align-items-center'>
-                    <div class="dropdown">
-                        <img
-                            data-bs-toggle="dropdown"
-                            className='img-fluid rounded-circle'
-                            width={50}
-                            src="https://shreethemes.in/doctris/layouts/assets/images/doctors/01.jpg" alt="" />
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Action</a></li>
-                            <li><a class="dropdown-item" href="#">Another action</a></li>
-                            <li><a class="dropdown-item" href="#">Logout</a></li>
-                        </ul>
-                    </div>
+                    {lgoinOnlyContent}
                     <Link to="/appointment" class="ms-3 btn btn-primary">Make Appointment</Link>
                 </div>
             </div>

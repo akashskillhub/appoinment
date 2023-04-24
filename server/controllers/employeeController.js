@@ -28,6 +28,13 @@ exports.getEmployee = asyncHandler(async (req, res) => {
         result
     })
 })
+exports.getDoctors = asyncHandler(async (req, res) => {
+    const result = await Employee.find({ role: "doctor" }).select("name category")
+    res.json({
+        message: "dector fetch success",
+        result
+    })
+})
 
 exports.destroy = asyncHandler(async (req, res) => {
     const result = await Employee.deleteMany()
