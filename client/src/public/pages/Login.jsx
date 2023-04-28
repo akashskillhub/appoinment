@@ -7,15 +7,22 @@ const Login = () => {
     const { loading, error, info } = useSelector(state => state.public)
     const dispatch = useDispatch()
     const [userData, setUserData] = useState({
-        email: "john@gmail.com",
+        email: "ross1@gmail.com",
         password: "123"
     })
     const handleLogin = () => dispatch(loginUser(userData))
     const navigate = useNavigate()
     useEffect(() => {
         if (info) {
-            navigate("/appointment")
+            if (info.role === "user") {
+                navigate("/appointment")
+            }
+
+            if (info.role === "admin") {
+                navigate("/admin")
+            }
         }
+
     }, [info])
 
     if (loading) return <div class="spinner-border text-primary"></div>

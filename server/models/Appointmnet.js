@@ -12,7 +12,7 @@ const appointment = mongoose.Schema({
     },
     doctorId: {
         type: mongoose.Types.ObjectId,
-        ref: "doctor",
+        ref: "employee",
         required: true
     },
     comment: {
