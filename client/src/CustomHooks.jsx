@@ -4,6 +4,7 @@ import useSerialize from './hooks/useSerialize'
 import useDebounce from './hooks/useDebounce'
 
 const CustomHooks = () => {
+    // react-error-boundary
     const x = useLocalStorage("info")
     const s = useSerialize(x)
     const [inp, setInp] = useState("")

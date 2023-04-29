@@ -37,3 +37,14 @@ export const bookAppoinment = createAsyncThunk("public/book", async (bookingData
     }
 
 })
+
+export const loginEmployee = createAsyncThunk("public/employeeLogin", async (employeeData, { rejectWithValue, getState }) => {
+    try {
+        const { data } = await api.post("/employee/login", employeeData)
+        localStorage.setItem("info", JSON.stringify(data.result))
+        return data.result
+    } catch (error) {
+        return rejectWithValue(error.response.data.message || error.message)
+    }
+
+})

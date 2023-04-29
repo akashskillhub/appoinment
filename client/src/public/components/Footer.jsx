@@ -9,6 +9,7 @@ const Footer = () => {
         { title: "Projects", to: "/" },
         { title: "Blogs", to: "/" },
         { title: "Login", to: "/login" },
+        { title: "Employee", to: "/employee-login" },
     ]
     const compayLinkContent = compayLinkArray.map(item => <Link
         to={item.to}

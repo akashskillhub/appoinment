@@ -1,6 +1,9 @@
 const asyncHandler = require("express-async-handler")
 const Employee = require("../models/Employee")
 const bcrypt = require("bcrypt")
+const jwt = require("jsonwebtoken")
+const Appointmnet = require("../models/Appointmnet")
+const { format } = require("date-fns")
 exports.registerEmployee = asyncHandler(async (req, res) => {
     const { email, password } = req.body
     const found = await Employee.findOne({ email })
@@ -35,12 +38,61 @@ exports.getDoctors = asyncHandler(async (req, res) => {
         result
     })
 })
-
 exports.destroy = asyncHandler(async (req, res) => {
     const result = await Employee.deleteMany()
     res.json({
         message: "employee destroy success",
         result
+    })
+})
+exports.employeeLogin = asyncHandler(async (req, res) => {
+    const { email, password } = req.body
+    const found = await Employee.findOne({ email })
+    if (!found) {
+        return res.status(400).json({ message: "email not found" })
+    }
+    const verify = bcrypt.compareSync(password, found.password)
+    if (!verify) {
+        return res.status(400).json({ message: "invalid password" })
+    }
+    const token = jwt.sign({ id: found._id, role: found.role }, process.env.JWT_KEY)
+    res.cookie("token", token)
+    res.json({
+        message: "user login success",
+        result: {
+            id: found._id,
+            name: found.name,
+            email: found.email,
+            role: found.role
+        }
+    })
+})
+exports.getBookings = asyncHandler(async (req, res) => {
+
+    if (!req.body.doctorId) {
+        return res.status(401).json({
+            message: "unauthorized. Doctor Only Rourte"
+        })
+    }
+    const result = await Appointmnet.find({ doctorId: req.body.doctorId })
+    const events = result.map(item => {
+        return {
+            title: item.comment || item.userId,
+            date: format(new Date(item.bookingDate), "yyyy-MM-dd")
+        }
+    })
+    const today = result.filter(item => {
+        if (format(new Date(item.bookingDate), "dd") === format(new Date(), "dd")) {
+            return item
+        }
+    })
+
+    res.json({
+        message: "fetch doctor appoinments success",
+        result: {
+            events,
+            todayBookings: today
+        }
     })
 })
 

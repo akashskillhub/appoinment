@@ -15,7 +15,11 @@ exports.authProtected = (req, res, next) => {
             return res.status(401).json({ message: "invalid token" })
         }
         const { id, role } = decode
-        req.body.userId = id
+        if (role === "user") {
+            req.body.userId = id
+        } else if (role === "doctor") {
+            req.body.doctorId = id
+        }
         req.body.role = role
         next()
     })
