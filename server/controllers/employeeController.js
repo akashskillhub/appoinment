@@ -74,7 +74,9 @@ exports.getBookings = asyncHandler(async (req, res) => {
             message: "unauthorized. Doctor Only Rourte"
         })
     }
-    const result = await Appointmnet.find({ doctorId: req.body.doctorId })
+    const result = await Appointmnet
+        .find({ doctorId: req.body.doctorId })
+        .populate("userId", "name")
     const events = result.map(item => {
         return {
             title: item.comment || item.userId,

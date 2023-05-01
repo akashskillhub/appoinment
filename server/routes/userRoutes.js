@@ -1,9 +1,10 @@
 const { readUser, readUsers, register, login, continueWithGoogle, handleAccount, updateUser, deleteUser, destroyUsers, searchUser } = require("../controllers/userController")
+const { limiter } = require("../middlewares/limiter")
 
 const router = require("express").Router()
 
 router
-    .get("/", readUsers)
+    .get("/", limiter, readUsers)
     .post("/register", register)
     .post("/login", login)
     .post("/continue-with-google", continueWithGoogle)

@@ -4,10 +4,33 @@ const express = require("express")
 const { connectDB } = require("./config/db")
 const cors = require("cors")
 const cookieParser = require("cookie-parser")
+const compression = require("compression")
+const morgan = require('morgan')
+const helmet = require('helmet')
+const fs = require('fs')
+const path = require('path')
 connectDB()
 const app = express()
 app.use(express.json())
 app.use(cookieParser())
+const accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), { flags: 'a' })
+app.use(morgan('combined', { stream: accessLogStream }))
+app.use(compression())
+app.use(helmet())
+/*
+TYPESCRIPT
+    mongoDB
+        Aggrigation
+        cluster
+    SQL
+        MySQL
+        Sequlize
+    stream
+    concurrency
+    GraphQL
+    Socket 
+
+*/
 app.use(cors({
     origin: "http://localhost:5173",
     credentials: true

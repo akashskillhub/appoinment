@@ -9,22 +9,29 @@ const Account = () => {
     useEffect(() => {
         dispatch(getDoctorAppoinments())
     }, [])
+
+    const content = <>
+        {bookings && bookings.todayBookings && bookings.todayBookings.map(item => <li className="list-group-item d-flex justify-content-between">
+            <span>  {item.userId.name}</span>
+            <span>{item.comment}</span>
+        </li>)}
+    </>
     return <div className='container py-3'>
         <div className="row">
-            <div className="col-sm-4">
+            <div className="col-sm-6">
                 <div class="card">
                     <div class="card-header d-flex justify-content-between">
                         <span>Todays Bookings</span>
-                        <span>3</span>
+                        <span>{bookings && bookings.todayBookings.length}</span>
                     </div>
                     <div class="card-body">
                         <ul class="list-group">
-                            <li class="list-group-item">An item</li>
+                            {content}
                         </ul>
                     </div>
                 </div>
             </div>
-            <div className="col-sm-8">
+            <div className="col-sm-6">
                 <FullCalendar
                     plugins={[dayGridPlugin]}
                     initialView="dayGridMonth"

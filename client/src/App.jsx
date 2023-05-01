@@ -16,14 +16,15 @@ import CustomHooks from './CustomHooks'
 import EmployeeLayout from './employee/employeeLayout'
 import Account from './employee/pages/Account'
 import EmployeeLogin from './public/pages/EmployeeLogin'
+import Stat from './public/pages/Stat'
+import { ErrorBoundary } from 'react-error-boundary'
 const App = () => {
-  return <>
+  return <ErrorBoundary fallbackRender={e => <h1>Kuch toh gadbad hai</h1>}>
     < BrowserRouter>
       <Routes>
         <Route path="/" element={<PublicLayout />}>
-          {/* <Route index element={<CustomHooks />} /> */}
-          <Route index element={<Home />} />
-          {/* <Route index element={<Debounce />} /> */}
+          {/* <Route index element={<Home />} /> */}
+          <Route index element={<Stat />} />
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
           <Route path="employee-login" element={<EmployeeLogin />} />
@@ -53,7 +54,7 @@ const App = () => {
       </Routes>
     </ BrowserRouter>
 
-  </>
+  </ErrorBoundary>
 }
 
 export default App
